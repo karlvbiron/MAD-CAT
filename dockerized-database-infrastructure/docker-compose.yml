@@ -1,0 +1,137 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.1.11
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodata:/data/db
+      - ./init-scripts/mongodb/mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: elasticsearch
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.1.12
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - network.host=0.0.0.0
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - ./init-scripts/elasticsearch/es-bulk_data.json:/usr/share/elasticsearch/config/es-bulk_data.json
+      - ./init-scripts/elasticsearch/es-custom-entrypoint.sh:/es-custom-entrypoint.sh
+    entrypoint: ["/bin/bash", "/es-custom-entrypoint.sh"]
+    mem_limit: 1g
+
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.1.13
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=TestCluster
+      - CASSANDRA_DC=dc1
+      - CASSANDRA_RACK=rack1
+      - MAX_HEAP_SIZE=256M
+      - HEAP_NEWSIZE=64M
+      - JVM_OPTS=-Xms256M -Xmx256M
+    volumes:
+      - cassandradata:/var/lib/cassandra
+      - ./init-scripts/cassandra/cassandra-init.cql:/cassandra-init.cql
+      - ./init-scripts/cassandra/cassandra-entrypoint.sh:/cassandra-entrypoint.sh
+    entrypoint: ["/bin/bash", "/cassandra-entrypoint.sh"]
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.1.14
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+      - ./init-scripts/redis/redis-init.sh:/redis-init.sh
+      - ./init-scripts/redis/redis-entrypoint.sh:/redis-entrypoint.sh
+    entrypoint: ["sh", "/redis-entrypoint.sh"]
+
+  couchdb:
+    image: couchdb:latest
+    container_name: couchdb
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.1.15
+    ports:
+      - "5984:5984"
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
+    volumes:
+      - couchdbdata:/opt/couchdb/data
+      - ./init-scripts/couchdb/couchdb-init.sh:/docker-entrypoint-initdb.d/couchdb-init.sh
+      - ./init-scripts/couchdb/couchdb-entrypoint.sh:/couchdb-entrypoint.sh
+    entrypoint: ["/bin/bash", "/couchdb-entrypoint.sh"]
+
+  hadoop:
+    image: apache/hadoop:3
+    container_name: hadoop
+    user: root
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.1.16
+    ports:
+      - "9870:9870"
+      - "8088:8088"
+    environment:
+      - HADOOP_HOME=/opt/hadoop
+      - HDFS_NAMENODE_USER=root
+      - HDFS_DATANODE_USER=root
+      - HDFS_SECONDARYNAMENODE_USER=root
+      - YARN_RESOURCEMANAGER_USER=root
+      - YARN_NODEMANAGER_USER=root
+    volumes:
+      - hadoopdata:/tmp/hadoop-data
+      - ./init-scripts/hadoop/hadoop-init.sh:/hadoop-init.sh
+      - ./init-scripts/hadoop/hadoop-entrypoint.sh:/hadoop-entrypoint.sh
+    entrypoint: ["/bin/bash", "/hadoop-entrypoint.sh"]
+    hostname: hadoop
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+      nproc:
+        soft: 65536
+        hard: 65536
+
+volumes:
+  mongodata:
+  esdata:
+  cassandradata:
+  redisdata:
+  couchdbdata:
+  hadoopdata:
+    
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+

@@ -1,0 +1,6 @@
+192.168.1.11,mongodb,27017,"root","example"
+192.168.1.12,elasticsearch,9200,"admin","secret"
+192.168.1.13,cassandra,9042,"",""
+192.168.1.14,redis,6379,"",""
+192.168.1.15,couchdb,5984,"admin","password"
+192.168.1.16,hadoop,9870,"",""
