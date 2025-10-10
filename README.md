@@ -13,13 +13,13 @@ MAD-CAT (Meow Attack Data Corruption Automation Tool) is a comprehensive educati
 The tool currently supports the following database services:
 
 <div align="center">
-  <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg" alt="MongoDB" height="80"/>
-  <img src="https://www.vectorlogo.zone/logos/elastic/elastic-ar21.svg" alt="Elasticsearch" height="80"/>
-  <img src="https://www.vectorlogo.zone/logos/apache_cassandra/apache_cassandra-ar21.svg" alt="Cassandra" height="80"/>
+  <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg" alt="MongoDB" height="120"/>
+  <img src="https://www.vectorlogo.zone/logos/elastic/elastic-ar21.svg" alt="Elasticsearch" height="120"/>
+  <img src="https://www.vectorlogo.zone/logos/apache_cassandra/apache_cassandra-ar21.svg" alt="Cassandra" height="120"/>
   </br>
-  <img src="https://www.vectorlogo.zone/logos/redis/redis-ar21.svg" alt="Redis" height="80"/>
-  <img src="https://www.vectorlogo.zone/logos/apache_couchdb/apache_couchdb-ar21.svg" alt="CouchDB" height="80"/>
-  <img src="https://www.vectorlogo.zone/logos/apache_hadoop/apache_hadoop-ar21.svg" alt="Hadoop" height="80"/>
+  <img src="https://www.vectorlogo.zone/logos/redis/redis-ar21.svg" alt="Redis" height="120"/>
+  <img src="https://www.vectorlogo.zone/logos/apache_couchdb/apache_couchdb-ar21.svg" alt="CouchDB" height="120"/>
+  <img src="https://www.vectorlogo.zone/logos/apache_hadoop/apache_hadoop-ar21.svg" alt="Hadoop" height="120"/>
 </div>
 
 - **MongoDB** (port 27017)
