@@ -12,6 +12,10 @@ import attackers
 from core.attack_factory import AttackFactory
 from utils.logging import setup_logging
 
+# ANSI color codes
+GREEN_BOLD = "\033[1;32m"
+RESET = "\033[0m"
+
 def parse_arguments():
     """
     Parse command line arguments.
@@ -289,7 +293,7 @@ def main():
             print(f"[+] Total databases processed: {total_stats['databases_processed']}")
             print(f"[+] Total collections processed: {total_stats['collections_processed']}")
             print(f"[+] Total records affected: {total_stats['records_affected']}")
-            print("\n[+] All data has been MEOWed! ᓚᘏᗢ")
+            print(f"\n{GREEN_BOLD}[+] All data has been MEOWed!{RESET} ᓚᘏᗢ")
 
             return 0
 
@@ -327,7 +331,7 @@ def main():
             stats = attacker.execute_attack()
 
             # Display results
-            print("\n[+] Attack completed successfully!")
+            print(f"\n{GREEN_BOLD}[+] Attack completed successfully!{RESET}")
             print(f"[+] Databases processed: {stats['databases_processed']}")
             print(f"[+] Collections processed: {stats['collections_processed']}")
             print(f"[+] Records affected: {stats['records_affected']}")
