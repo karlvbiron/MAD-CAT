@@ -82,8 +82,8 @@ class RedisAttacker(BaseAttacker):
 
     def get_collections(self, database):
         """
-        In Redis, we don't have collections. Instead, we'll group keys by pattern.
-        We'll return key patterns (e.g., "user:*") as "collections".
+        Redis has no collections; keys are grouped by pattern.
+        Returns key patterns (e.g., "user:*") as "collections".
         """
         # Switch to the specified database
         self.client.execute_command('SELECT', int(database))

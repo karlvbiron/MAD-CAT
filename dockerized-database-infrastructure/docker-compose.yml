@@ -70,6 +70,7 @@ services:
       - redisdata:/data
       - ./init-scripts/redis/redis-init.sh:/redis-init.sh
       - ./init-scripts/redis/redis-entrypoint.sh:/redis-entrypoint.sh
+      - ./init-scripts/redis/redis-data.txt:/redis-data.txt
     entrypoint: ["sh", "/redis-entrypoint.sh"]
 
   couchdb:
@@ -87,6 +88,7 @@ services:
       - couchdbdata:/opt/couchdb/data
       - ./init-scripts/couchdb/couchdb-init.sh:/docker-entrypoint-initdb.d/couchdb-init.sh
       - ./init-scripts/couchdb/couchdb-entrypoint.sh:/couchdb-entrypoint.sh
+      - ./init-scripts/couchdb/couchdb-bulk.json:/couchdb-bulk.json
     entrypoint: ["/bin/bash", "/couchdb-entrypoint.sh"]
 
   hadoop:
@@ -110,6 +112,7 @@ services:
       - hadoopdata:/tmp/hadoop-data
       - ./init-scripts/hadoop/hadoop-init.sh:/hadoop-init.sh
       - ./init-scripts/hadoop/hadoop-entrypoint.sh:/hadoop-entrypoint.sh
+      - ./init-scripts/hadoop/data:/hadoop-data
     entrypoint: ["/bin/bash", "/hadoop-entrypoint.sh"]
     hostname: hadoop
     ulimits:

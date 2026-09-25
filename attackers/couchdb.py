@@ -55,8 +55,8 @@ class CouchDBAttacker(BaseAttacker):
 
     def get_collections(self, database):
         """
-        In CouchDB, there's no concept of collections within a database.
-        We return the database name itself as the "collection".
+        CouchDB has no concept of collections within a database.
+        Returns the database name itself as the "collection".
         """
         return [database]
 

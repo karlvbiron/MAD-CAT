@@ -1,0 +1,7 @@
+{
+  "generator": "faker",
+  "seed": 1337,
+  "patient_count": 25,
+  "generated_at": "2026-09-16T02:26:53",
+  "classification": "PHI"
+}

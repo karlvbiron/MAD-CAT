@@ -11,7 +11,11 @@ until curl -s -X GET 'http://localhost:9200/_cluster/health?wait_for_status=yell
   sleep 5
 done
 
-echo "Elasticsearch is up. Running bulk data upload..."
+echo "Elasticsearch is up. Creating index with date/numeric detection disabled..."
+curl -X PUT 'http://localhost:9200/my_index' -H 'Content-Type: application/json' -d '{"mappings":{"date_detection":false,"numeric_detection":false}}'
+echo ""
+
+echo "Running bulk data upload..."
 curl -X POST 'http://localhost:9200/_bulk?pretty' -H 'Content-Type: application/json' --data-binary @/usr/share/elasticsearch/config/es-bulk_data.json
 echo "Bulk data upload complete. Keeping container running..."
 

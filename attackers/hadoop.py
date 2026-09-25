@@ -48,7 +48,7 @@ class HadoopAttacker(BaseAttacker):
     def get_databases(self):
         """
         In HDFS, directories are equivalent to databases.
-        We'll recursively find all directories that contain files.
+        Recursively finds all directories that contain files.
         """
         directories_with_files = []
         

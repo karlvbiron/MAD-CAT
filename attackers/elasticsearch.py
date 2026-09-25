@@ -57,7 +57,7 @@ class ElasticsearchAttacker(BaseAttacker):
     def get_collections(self, index):
         """
         In Elasticsearch, mappings are the closest equivalent to collections/tables.
-        However, an index typically has just one mapping, so we'll return a single item.
+        An index typically has just one mapping, so this returns a single item.
         """
         return [index]  # Return the index name as the only "collection"
     
@@ -70,7 +70,7 @@ class ElasticsearchAttacker(BaseAttacker):
     def meow_data(self, index, collection):
         """
         Execute the MEOW attack on the specified index.
-        For Elasticsearch, we'll update all documents in the index.
+        Updates all documents in the index.
         """
         # First, get the mapping to understand the fields
         response = self.session.get(f"{self.base_url}/{index}/_mapping")

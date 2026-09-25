@@ -162,7 +162,7 @@ class CassandraAttacker(BaseAttacker):
                         new_value = f"{random_chars}-MEOW"
                         update_fields.append(f"{col_name} = '{new_value}'")
                     elif col_type in ('int', 'bigint', 'smallint', 'tinyint', 'varint'):
-                        # For numeric types, we'll still use a text representation
+                        # For numeric types, the code still uses a text representation
                         random_chars = self.random_alphanumeric()
                         # Note: This will fail for numeric columns, so we skip them
                         # Instead, we could set them to a random number

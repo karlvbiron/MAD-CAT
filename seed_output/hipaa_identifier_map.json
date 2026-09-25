@@ -1,0 +1,20 @@
+{
+  "firstName": "1 - Names",
+  "lastName": "1 - Names",
+  "address": "2 - Geographic subdivisions smaller than a state",
+  "city": "2 - Geographic subdivisions smaller than a state",
+  "zip": "2 - Geographic subdivisions smaller than a state",
+  "dob": "3 - Dates related to an individual (birth date)",
+  "admission_date": "3 - Dates related to an individual",
+  "discharge_date": "3 - Dates related to an individual",
+  "phoneNumber": "4 - Telephone numbers",
+  "email": "6 - Electronic mail addresses",
+  "ssn": "7 - Social Security numbers",
+  "mrn": "8 - Medical record numbers",
+  "health_plan_id": "9 - Health plan beneficiary numbers",
+  "account_number": "10 - Account numbers",
+  "device_id": "14 - Device identifiers and serial numbers",
+  "ip_address": "15 - IP addresses",
+  "npi": "18 - Any other unique identifying number (provider NPI)",
+  "patient_id": "18 - Any other unique identifying number (internal MRN link)"
+}
